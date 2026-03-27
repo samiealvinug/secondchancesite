@@ -1,0 +1,68 @@
+import { useState, useEffect } from 'react';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+
+export interface SiteImage {
+  image_key: string;
+  image_url: string;
+  alt_text: string;
+}
+
+export function useSiteImages() {
+  const [images, setImages] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(true);
+
+  const fetchImages = async () => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('site_images')
+        .select('image_key, image_url');
+
+      if (error) throw error;
+
+      if (data) {
+        const imageMap: Record<string, string> = {};
+        data.forEach((img) => {
+          imageMap[img.image_key] = img.image_url;
+        });
+        setImages(imageMap);
+      }
+    } catch (error) {
+      console.error('Error fetching site images:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateImage = async (key: string, url: string) => {
+    if (!isSupabaseConfigured) return false;
+
+    try {
+      const { error } = await supabase
+        .from('site_images')
+        .upsert({ 
+          image_key: key, 
+          image_url: url, 
+          updated_at: new Date().toISOString() 
+        }, { onConflict: 'image_key' });
+
+      if (error) throw error;
+
+      setImages(prev => ({ ...prev, [key]: url }));
+      return true;
+    } catch (error) {
+      console.error(`Error updating image ${key}:`, error);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
+  return { images, updateImage, loading, refresh: fetchImages };
+}
