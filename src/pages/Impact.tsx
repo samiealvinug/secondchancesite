@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { Globe, Users, Heart, Megaphone, MapPin, CheckCircle, Edit3, Camera, Plus, Trash2 } from 'lucide-react';
 import { useImpactData, ImpactInitiative, ImpactStat } from '../hooks/useImpactData';
 import { useHeroContent } from '../hooks/useHeroContent';
+import PlaceholderImage from '../components/PlaceholderImage';
 
 export default function Impact() {
   const { 
@@ -102,12 +103,16 @@ export default function Impact() {
           </motion.div>
         </div>
         <div className="relative h-[40vh] lg:h-auto overflow-hidden bg-brand-ink group/img">
-          <img 
-            src={hero?.image_url || "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=1000"} 
-            alt="Global impact" 
-            className="w-full h-full object-cover opacity-60"
-            referrerPolicy="no-referrer"
-          />
+          {hero?.image_url ? (
+            <img 
+              src={hero.image_url} 
+              alt="Global impact" 
+              className="w-full h-full object-cover opacity-60"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <PlaceholderImage className="w-full h-full opacity-40" />
+          )}
         </div>
       </section>
 
@@ -163,12 +168,16 @@ export default function Impact() {
                 </div>
                 <div className="flex-1 w-full">
                   <div className="aspect-[4/3] rounded-none overflow-hidden shadow-2xl relative group/img">
-                    <img 
-                      src={item.image_url} 
-                      alt={item.title} 
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover/img:scale-110"
-                      referrerPolicy="no-referrer"
-                    />
+                    {item.image_url ? (
+                      <img 
+                        src={item.image_url} 
+                        alt={item.title} 
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover/img:scale-110"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <PlaceholderImage className="w-full h-full" />
+                    )}
                     <div className="absolute inset-0 bg-brand-red/10 mix-blend-multiply opacity-0 group-hover/img:opacity-100 transition-opacity" />
                   </div>
                 </div>

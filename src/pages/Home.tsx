@@ -4,11 +4,12 @@ import { Heart, ArrowRight, Globe, ShieldCheck, Activity, ImagePlus, Edit3, Came
 import { Link } from 'react-router-dom';
 import { useHeroContent } from '../hooks/useHeroContent';
 import { useSiteImages } from '../hooks/useSiteImages';
+import PlaceholderImage from '../components/PlaceholderImage';
 
 export default function Home() {
   const { hero, updateHero, loading: heroLoading } = useHeroContent('home');
   const { images, updateImage, loading: imagesLoading } = useSiteImages();
-  const [heroImage, setHeroImage] = useState('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=2070');
+  const [heroImage, setHeroImage] = useState('');
 
   useEffect(() => {
     if (hero?.image_url) {
@@ -92,17 +93,23 @@ export default function Home() {
         </div>
         
         <div className="relative h-[60vh] lg:h-auto overflow-hidden group">
-          <motion.img 
-            key={heroImage}
-            initial={{ scale: 1.2, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.5 }}
-            src={heroImage} 
-            alt="Medical care and hope" 
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-brand-red/10 mix-blend-multiply" />
+          {heroImage ? (
+            <>
+              <motion.img 
+                key={heroImage}
+                initial={{ scale: 1.2, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 1.5 }}
+                src={heroImage} 
+                alt="Medical care and hope" 
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-brand-red/10 mix-blend-multiply" />
+            </>
+          ) : (
+            <PlaceholderImage className="w-full h-full" />
+          )}
           
           <div className="absolute bottom-12 right-12 bg-brand-cream p-8 rounded-none shadow-2xl max-w-xs hidden md:block">
             <Activity className="w-8 h-8 text-brand-red mb-4" />
@@ -152,12 +159,16 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="relative group/img">
               <div className="aspect-[4/5] rounded-none overflow-hidden shadow-2xl">
-                <img 
-                  src={images.home_philosophy || "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=1000"} 
-                  alt="Helping hands" 
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
+                {images.home_philosophy ? (
+                  <img 
+                    src={images.home_philosophy} 
+                    alt="Helping hands" 
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <PlaceholderImage className="w-full h-full" />
+                )}
               </div>
               <div className="absolute -top-12 -right-12 w-48 h-48 bg-brand-red rounded-none flex items-center justify-center p-8 text-center text-white shadow-2xl hidden xl:flex">
                 <p className="text-xs font-bold uppercase tracking-widest leading-relaxed">100% of support goes to the mission</p>
@@ -230,12 +241,16 @@ export default function Home() {
             </div>
             <div className="order-1 lg:order-2 relative group/img">
               <div className="aspect-square rounded-none overflow-hidden shadow-2xl">
-                <img 
-                  src={images.home_donation || "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&q=80&w=1000"} 
-                  alt="Helping hand" 
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
+                {images.home_donation ? (
+                  <img 
+                    src={images.home_donation} 
+                    alt="Helping hand" 
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <PlaceholderImage className="w-full h-full" />
+                )}
               </div>
               <div className="absolute -bottom-12 -right-12 bg-brand-ink text-white p-12 rounded-none shadow-2xl hidden xl:block max-w-xs">
                 <p className="text-3xl font-serif font-bold mb-4">100%</p>

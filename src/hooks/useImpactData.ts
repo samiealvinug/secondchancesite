@@ -29,17 +29,17 @@ export function useImpactData() {
     {
       title: "Organ Donation Awareness",
       description: "Comprehensive campaigns across the United States and Africa to educate the public on the life-saving power of organ donation.",
-      image_url: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&q=80&w=1000"
+      image_url: ""
     },
     {
       title: "Patient & Family Support",
       description: "Providing financial, emotional, and logistical support for transplant patients and their families navigating complex medical journeys.",
-      image_url: "https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&q=80&w=1000"
+      image_url: ""
     },
     {
       title: "Medical Outreach",
       description: "Coordinating medical missions and support systems in Uganda, India, and other regions where access to advanced care is limited.",
-      image_url: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1000"
+      image_url: ""
     }
   ]);
 

@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { ShieldCheck, Globe, Heart, Users, Target, Eye, Quote, Award, Camera, Edit3 } from 'lucide-react';
 import { useSiteImages } from '../hooks/useSiteImages';
 import { useHeroContent } from '../hooks/useHeroContent';
+import PlaceholderImage from '../components/PlaceholderImage';
 
 export default function About() {
   const { images, updateImage, loading: imagesLoading } = useSiteImages();
@@ -70,12 +71,16 @@ export default function About() {
             </div>
             <div className="relative group/img">
               <div className="aspect-[4/3] rounded-none overflow-hidden shadow-2xl">
-                <img 
-                  src={images.about_bridge || "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1000"} 
-                  alt="Medical support" 
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
+                {images.about_bridge ? (
+                  <img 
+                    src={images.about_bridge} 
+                    alt="Medical support" 
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <PlaceholderImage className="w-full h-full" />
+                )}
               </div>
               <div className="absolute -bottom-8 -left-8 bg-brand-red text-white p-8 rounded-none shadow-2xl hidden md:block">
                 <p className="text-4xl font-serif font-bold mb-2">2024</p>
@@ -154,12 +159,16 @@ export default function About() {
               className="relative group/img"
             >
               <div className="aspect-[4/5] rounded-none overflow-hidden shadow-2xl bg-brand-ink">
-                <img 
-                  src={images.about_founder || "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&q=80&w=1000"} 
-                  alt="Peter Mpagi" 
-                  className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-1000"
-                  referrerPolicy="no-referrer"
-                />
+                {images.about_founder ? (
+                  <img 
+                    src={images.about_founder} 
+                    alt="Peter Mpagi" 
+                    className="w-full h-full object-cover opacity-80 grayscale hover:grayscale-0 transition-all duration-1000"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <PlaceholderImage className="w-full h-full opacity-40" text="Founder Image Pending" />
+                )}
               </div>
               <div className="absolute -bottom-12 -left-12 bg-white p-10 rounded-none shadow-2xl max-w-xs hidden md:block">
                 <Award className="w-10 h-10 text-brand-red mb-4" />

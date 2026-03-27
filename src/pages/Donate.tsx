@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { Heart, ShieldCheck, Globe, CreditCard, DollarSign, Award, Mail } from 'lucide-react';
 import { useHeroContent } from '../hooks/useHeroContent';
 import { useSiteSettings } from '../hooks/useSiteSettings';
+import PlaceholderImage from '../components/PlaceholderImage';
 
 export default function Donate() {
   const { hero, loading: heroLoading } = useHeroContent('donate');
@@ -22,12 +23,16 @@ export default function Donate() {
       {/* Header */}
       <section className="relative py-32 px-8 md:px-20 overflow-hidden bg-brand-ink">
         <div className="absolute inset-0 z-0">
-          <img 
-            src={hero?.image_url || "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=2000"} 
-            alt="Donate background" 
-            className="w-full h-full object-cover opacity-40"
-            referrerPolicy="no-referrer"
-          />
+          {hero?.image_url ? (
+            <img 
+              src={hero.image_url} 
+              alt="Donate background" 
+              className="w-full h-full object-cover opacity-40"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <PlaceholderImage className="w-full h-full opacity-20" />
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-brand-ink/60 to-brand-ink" />
         </div>
 
