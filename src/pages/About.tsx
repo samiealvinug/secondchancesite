@@ -1,29 +1,12 @@
 import { motion } from 'motion/react';
-import { ShieldCheck, Globe, Heart, Users, Target, Eye, Quote, Award, Camera, Edit3 } from 'lucide-react';
+import { ShieldCheck, Globe, Heart, Users, Target, Eye, Quote, Award } from 'lucide-react';
 import { useSiteImages } from '../hooks/useSiteImages';
-import { useHeroContent } from '../hooks/useHeroContent';
 import PlaceholderImage from '../components/PlaceholderImage';
 
 export default function About() {
-  const { images, updateImage, loading: imagesLoading } = useSiteImages();
-  const { hero, updateHero, loading: heroLoading } = useHeroContent('about');
+  const { images, loading: imagesLoading } = useSiteImages();
 
-  const handleImageChange = async (key: string, currentUrl: string) => {
-    const newUrl = prompt(`Enter a new image URL for ${key}:`, currentUrl);
-    if (newUrl && newUrl.trim() !== '') {
-      await updateImage(key, newUrl);
-    }
-  };
-
-  const handleTextEdit = async (field: 'title' | 'subtitle' | 'badge_text') => {
-    const currentValue = hero ? hero[field] : '';
-    const newValue = prompt(`Enter new ${field.replace('_', ' ')}:`, currentValue);
-    if (newValue !== null && newValue.trim() !== '') {
-      await updateHero({ [field]: newValue });
-    }
-  };
-
-  if (imagesLoading || heroLoading) {
+  if (imagesLoading) {
     return (
       <div className="pt-32 min-h-screen bg-brand-cream flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-red"></div>
@@ -33,33 +16,31 @@ export default function About() {
 
   return (
     <div className="pt-32 bg-brand-cream">
-      {/* Header - Minimalist */}
-      <section className="py-20 px-8 md:px-20">
+      {/* Identity Section */}
+      <section className="py-16 md:py-24 px-6 md:px-20 border-b border-brand-ink/5">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="group relative"
+            className="space-y-8"
           >
-            <span className="text-brand-red font-bold text-[11px] uppercase tracking-[0.3em] mb-6 block flex items-center gap-2">
-              {hero?.badge_text || "Our Identity"}
-            </span>
-            <h1 className="text-5xl md:text-8xl font-serif font-bold text-brand-ink mb-12 leading-none flex items-start gap-4">
-              <span dangerouslySetInnerHTML={{ __html: hero?.title || 'The <span class="italic">Responsibility</span> of Survival.' }} />
+            <h2 className="text-brand-red font-bold text-[11px] uppercase tracking-[0.3em]">
+              Our Identity
+            </h2>
+            <h1 className="text-4xl sm:text-5xl md:text-8xl font-serif font-bold text-brand-ink leading-tight md:leading-none">
+              The Responsibility of <span className="italic">Survival.</span>
             </h1>
-            <div className="flex items-start gap-4">
-              <p className="text-xl text-brand-ink/60 max-w-2xl font-light leading-relaxed">
-                {hero?.subtitle || "Second Chance at Life was born from lived experience with organ failure and transplantation."}
-              </p>
-            </div>
+            <p className="text-lg md:text-xl text-brand-ink/60 max-w-2xl font-light leading-relaxed">
+              Second Chance at Life was born from lived experience with organ failure and transplantation.
+            </p>
           </motion.div>
         </div>
       </section>
 
       {/* Content - Split Layout */}
-      <section className="py-24 px-8 md:px-20">
+      <section className="py-16 md:py-24 px-6 md:px-20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start mb-32">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 items-start mb-20 md:mb-32">
             <div className="space-y-8">
               <h2 className="text-3xl font-serif font-bold text-brand-ink">A Bridge to Hope</h2>
               <p className="text-xl text-brand-ink/70 leading-relaxed font-light">
@@ -82,14 +63,14 @@ export default function About() {
                   <PlaceholderImage className="w-full h-full" />
                 )}
               </div>
-              <div className="absolute -bottom-8 -left-8 bg-brand-red text-white p-8 rounded-none shadow-2xl hidden md:block">
+              <div className="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 bg-brand-red text-white p-6 md:p-8 rounded-none shadow-2xl hidden sm:block">
                 <p className="text-4xl font-serif font-bold mb-2">2024</p>
                 <p className="text-[10px] uppercase tracking-widest font-bold">Foundation Year</p>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {[
               { 
                 icon: Target, 
@@ -113,7 +94,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.2 }}
-                className="bg-white p-12 rounded-none border border-brand-ink/5 shadow-sm hover:shadow-xl transition-all group"
+                className="bg-white p-8 md:p-12 rounded-none border border-brand-ink/5 shadow-sm hover:shadow-xl transition-all group"
               >
                 <div className="bg-brand-cream w-16 h-16 rounded-none flex items-center justify-center text-brand-red mb-8 group-hover:bg-brand-red group-hover:text-white transition-colors">
                   <item.icon className="w-8 h-8" />
@@ -127,9 +108,9 @@ export default function About() {
       </section>
 
       {/* Founder Story Section */}
-      <section className="py-32 px-8 md:px-20 bg-white">
+      <section className="py-20 md:py-32 px-6 md:px-20 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -137,7 +118,7 @@ export default function About() {
               className="space-y-8"
             >
               <span className="text-brand-red font-bold text-[11px] uppercase tracking-[0.3em] mb-6 block">The Founder</span>
-              <h2 className="text-4xl md:text-6xl font-serif font-bold text-brand-ink mb-8 leading-tight">
+              <h2 className="text-3xl md:text-6xl font-serif font-bold text-brand-ink mb-6 md:mb-8 leading-tight">
                 A Second Chance <br /><span className="italic text-brand-red">to Serve.</span>
               </h2>
               <div className="space-y-6 text-lg text-brand-ink/70 font-light leading-relaxed">
@@ -170,7 +151,7 @@ export default function About() {
                   <PlaceholderImage className="w-full h-full opacity-40" text="Founder Image Pending" />
                 )}
               </div>
-              <div className="absolute -bottom-12 -left-12 bg-white p-10 rounded-none shadow-2xl max-w-xs hidden md:block">
+              <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 bg-white p-6 md:p-10 rounded-none shadow-2xl max-w-[200px] md:max-w-xs hidden sm:block">
                 <Award className="w-10 h-10 text-brand-red mb-4" />
                 <h3 className="text-xl font-serif font-bold text-brand-ink mb-2">Peter Mpagi</h3>
                 <p className="text-sm text-brand-ink/40 uppercase tracking-widest font-bold">Founder & Survivor</p>
@@ -182,13 +163,13 @@ export default function About() {
 
       {/* Pillars */}
       <section className="py-24 bg-brand-ink text-brand-cream">
-        <div className="max-w-7xl mx-auto px-8 md:px-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-20">
           <div className="text-center mb-16">
             <span className="text-brand-red font-bold text-[11px] uppercase tracking-[0.3em] mb-4 block">Our Foundation</span>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">Our Core Pillars</h2>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4">Our Core Pillars</h2>
             <p className="text-brand-cream/60 font-light">The foundation of everything we do.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {[
               { title: "Advocacy", desc: "We fight for policies that increase organ donation rates and improve patient care standards globally." },
               { title: "Education", desc: "We provide clear, accessible information to debunk myths about organ donation and medical procedures." },

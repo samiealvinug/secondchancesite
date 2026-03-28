@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Heart } from 'lucide-react';
+import { Menu, X, Heart, ArrowRight } from 'lucide-react';
 import { Logo } from './Logo';
 import { cn } from '../lib/utils';
+import { motion, AnimatePresence } from 'motion/react';
 
 const navLinks = [
   { name: 'Home', path: '/' },
@@ -24,6 +25,15 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen]);
+
   return (
     <nav
       className={cn(
@@ -33,7 +43,7 @@ export default function Navbar() {
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         <div className="flex justify-between items-center">
-          <Link to="/" className="flex-shrink-0">
+          <Link to="/" className="flex-shrink-0 relative z-[60]">
             <Logo light={false} />
           </Link>
 
@@ -58,40 +68,73 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center relative z-[60]">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={cn(
-                "transition-colors",
-                location.pathname === '/' && !scrolled ? "text-brand-ink/90" : "text-brand-ink"
+                "p-2 transition-colors",
+                isOpen ? "text-brand-ink" : (location.pathname === '/' && !scrolled ? "text-brand-ink/90" : "text-brand-ink")
               )}
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
             </button>
           </div>
         </div>
       </div>
 
-          {/* Mobile Nav */}
-          {isOpen && (
-            <div className="md:hidden bg-brand-cream border-b border-brand-ink/5 absolute w-full left-0 py-8 px-8 space-y-4 shadow-2xl">
-              {navLinks.map((link) => (
-                <Link
+      {/* Mobile Nav Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 bg-brand-cream z-50 flex flex-col pt-32 px-8"
+          >
+            <div className="flex flex-col space-y-6">
+              {navLinks.map((link, i) => (
+                <motion.div
                   key={link.name}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className={cn(
-                    "block px-4 py-3 text-[12px] uppercase tracking-widest font-bold transition-all",
-                    link.name === 'Donate'
-                      ? "bg-brand-red text-white text-center"
-                      : (location.pathname === link.path ? "text-brand-red" : "text-brand-ink/80")
-                  )}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 + 0.2 }}
                 >
-                  {link.name}
-                </Link>
+                  <Link
+                    to={link.path}
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "group flex items-center justify-between py-4 border-b border-brand-ink/5",
+                      location.pathname === link.path ? "text-brand-red" : "text-brand-ink"
+                    )}
+                  >
+                    <span className="text-4xl font-serif font-bold tracking-tight">
+                      {link.name}
+                    </span>
+                    <ArrowRight className={cn(
+                      "w-6 h-6 transition-transform group-hover:translate-x-2",
+                      location.pathname === link.path ? "opacity-100" : "opacity-0"
+                    )} />
+                  </Link>
+                </motion.div>
               ))}
             </div>
-          )}
-        </nav>
+
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="mt-auto pb-12"
+            >
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-ink/40 mb-4">Connect With Us</p>
+              <div className="flex gap-6">
+                <a href="https://www.instagram.com/second_chance_at_life" target="_blank" rel="noopener noreferrer" className="text-brand-ink font-serif italic text-lg hover:text-brand-red transition-colors">Instagram</a>
+                <a href="https://x.com/secChanceAtLife" target="_blank" rel="noopener noreferrer" className="text-brand-ink font-serif italic text-lg hover:text-brand-red transition-colors">Twitter</a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
 }

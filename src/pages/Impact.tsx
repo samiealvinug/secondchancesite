@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
-import { Globe, Users, Heart, Megaphone, MapPin, CheckCircle, Edit3, Camera, Plus, Trash2 } from 'lucide-react';
-import { useImpactData, ImpactInitiative, ImpactStat } from '../hooks/useImpactData';
+import { Globe, Users, Heart, Megaphone, MapPin, CheckCircle } from 'lucide-react';
+import { useImpactData } from '../hooks/useImpactData';
 import { useHeroContent } from '../hooks/useHeroContent';
 import PlaceholderImage from '../components/PlaceholderImage';
 
@@ -8,68 +8,9 @@ export default function Impact() {
   const { 
     stats, 
     initiatives, 
-    loading: impactLoading, 
-    addInitiative, 
-    updateInitiative, 
-    deleteInitiative, 
-    updateStat 
+    loading: impactLoading
   } = useImpactData();
-  const { hero, updateHero, loading: heroLoading } = useHeroContent('impact');
-
-  const handleTextEdit = async (field: 'title' | 'subtitle' | 'badge_text') => {
-    const currentValue = hero ? hero[field] : '';
-    const newValue = prompt(`Enter new ${field.replace('_', ' ')}:`, currentValue);
-    if (newValue !== null && newValue.trim() !== '') {
-      await updateHero({ [field]: newValue });
-    }
-  };
-
-  const handleHeroImageChange = async () => {
-    const currentUrl = hero?.image_url || '';
-    const newUrl = prompt('Enter new hero image URL:', currentUrl);
-    if (newUrl && newUrl.trim() !== '') {
-      await updateHero({ image_url: newUrl });
-    }
-  };
-
-  const handleEditInitiative = async (item: ImpactInitiative) => {
-    if (!item.id) return;
-    const title = prompt('Enter new title:', item.title);
-    const description = prompt('Enter new description:', item.description);
-    const image_url = prompt('Enter new image URL:', item.image_url);
-
-    if (title && description && image_url) {
-      await updateInitiative(item.id, { title, description, image_url });
-    }
-  };
-
-  const handleDeleteInitiative = async (id?: string) => {
-    if (!id) return;
-    if (confirm('Are you sure you want to delete this initiative?')) {
-      await deleteInitiative(id);
-    }
-  };
-
-  const handleAddInitiative = async () => {
-    const title = prompt('Enter title:');
-    const description = prompt('Enter description:');
-    const image_url = prompt('Enter image URL:');
-
-    if (title && description && image_url) {
-      await addInitiative({ title, description, image_url, display_order: initiatives.length + 1 });
-    }
-  };
-
-  const handleEditStat = async (stat: ImpactStat) => {
-    if (!stat.id) return;
-    const number = prompt('Enter new number (e.g. 10k+):', stat.number);
-    const label = prompt('Enter new label:', stat.label);
-    const description = prompt('Enter new description:', stat.description);
-
-    if (number && label && description) {
-      await updateStat(stat.id, { number, label, description });
-    }
-  };
+  const { hero, loading: heroLoading } = useHeroContent('impact');
 
   if (impactLoading || heroLoading) {
     return (
@@ -82,8 +23,8 @@ export default function Impact() {
   return (
     <div className="pt-32 bg-brand-cream overflow-hidden">
       {/* Hero - Split Layout */}
-      <section className="split-layout border-b border-brand-ink/5">
-        <div className="flex flex-col justify-center px-8 md:px-20 py-20 group">
+      <section className="grid grid-cols-1 lg:grid-cols-2 border-b border-brand-ink/5">
+        <div className="flex flex-col justify-center px-6 md:px-20 py-16 md:py-24 group">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -92,17 +33,17 @@ export default function Impact() {
             <span className="text-brand-red font-bold text-[11px] uppercase tracking-[0.3em] mb-6 block flex items-center gap-2">
               {hero?.badge_text || "Our Reach"}
             </span>
-            <h1 className="text-5xl md:text-8xl font-serif font-bold text-brand-ink mb-12 leading-none flex items-start gap-4">
+            <h1 className="text-4xl sm:text-5xl md:text-8xl font-serif font-bold text-brand-ink mb-8 md:mb-12 leading-tight md:leading-none flex items-start gap-4">
               <span dangerouslySetInnerHTML={{ __html: hero?.title || 'Global <span class="italic">Impact.</span>' }} />
             </h1>
             <div className="flex items-start gap-4">
-              <p className="text-xl text-brand-ink/60 leading-relaxed font-light max-w-lg">
+              <p className="text-lg md:text-xl text-brand-ink/60 leading-relaxed font-light max-w-lg">
                 {hero?.subtitle || "Measuring our success not in numbers, but in the lives we touch and the hope we restore across borders."}
               </p>
             </div>
           </motion.div>
         </div>
-        <div className="relative h-[40vh] lg:h-auto overflow-hidden bg-brand-ink group/img">
+        <div className="relative h-[300px] sm:h-[400px] lg:h-auto overflow-hidden bg-brand-ink group/img">
           {hero?.image_url ? (
             <img 
               src={hero.image_url} 
@@ -117,9 +58,9 @@ export default function Impact() {
       </section>
 
       {/* Stats - Oversized Numbers */}
-      <section className="py-32 px-8 md:px-20">
+      <section className="py-20 md:py-32 px-6 md:px-20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16">
             {stats.map((stat, i) => (
               <motion.div 
                 key={i}
@@ -129,7 +70,7 @@ export default function Impact() {
                 transition={{ delay: i * 0.1 }}
                 className="relative group"
               >
-                <span className="text-7xl font-serif font-bold text-brand-red/10 block mb-4">{stat.number}</span>
+                <span className="text-6xl md:text-7xl font-serif font-bold text-brand-red/10 block mb-2 md:mb-4">{stat.number}</span>
                 <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-red mb-4">{stat.label}</h3>
                 <p className="text-brand-ink/60 font-light text-sm">{stat.description}</p>
               </motion.div>
@@ -139,18 +80,18 @@ export default function Impact() {
       </section>
 
       {/* Initiatives - Editorial Style */}
-      <section className="py-32 px-8 md:px-20 bg-white">
+      <section className="py-20 md:py-32 px-6 md:px-20 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col items-center text-center mb-24">
+          <div className="flex flex-col items-center text-center mb-16 md:mb-24">
             <span className="text-brand-red font-bold text-[11px] uppercase tracking-[0.3em] mb-6">Our Work</span>
-            <h2 className="text-4xl md:text-6xl font-serif font-bold text-brand-ink max-w-3xl leading-tight">
+            <h2 className="text-3xl md:text-6xl font-serif font-bold text-brand-ink max-w-3xl leading-tight">
               Turning Compassion into <span className="italic">Action.</span>
             </h2>
           </div>
           
-          <div className="space-y-40">
+          <div className="space-y-24 md:space-y-40">
             {initiatives.map((item, i) => (
-              <div key={i} className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-24 items-center group`}>
+              <div key={i} className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 md:gap-24 items-center group`}>
                 <div className="flex-1 space-y-8">
                   <div className="flex items-center justify-between">
                     <span className="text-brand-red font-serif italic text-4xl">0{i + 1}</span>
@@ -188,12 +129,12 @@ export default function Impact() {
       </section>
 
       {/* Borderless Mission - Immersive Dark */}
-      <section className="py-32 px-8 md:px-20 bg-brand-ink text-brand-cream">
+      <section className="py-20 md:py-32 px-6 md:px-20 bg-brand-ink text-brand-cream">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
             <div className="space-y-10">
               <span className="text-brand-red font-bold text-[11px] uppercase tracking-[0.3em] block">Our Presence</span>
-              <h2 className="text-4xl md:text-6xl font-serif font-bold leading-tight">
+              <h2 className="text-3xl md:text-6xl font-serif font-bold leading-tight">
                 A <span className="italic">Borderless</span> Mission.
               </h2>
               <p className="text-xl text-brand-cream/60 font-light leading-relaxed">

@@ -1,14 +1,16 @@
 import { motion } from 'motion/react';
-import { Heart, ShieldCheck, Globe, CreditCard, DollarSign, Award, Mail } from 'lucide-react';
+import { ShieldCheck, Award, Mail } from 'lucide-react';
 import { useHeroContent } from '../hooks/useHeroContent';
 import { useSiteSettings } from '../hooks/useSiteSettings';
+import { useSiteImages } from '../hooks/useSiteImages';
 import PlaceholderImage from '../components/PlaceholderImage';
 
 export default function Donate() {
   const { hero, loading: heroLoading } = useHeroContent('donate');
   const { settings, loading: settingsLoading } = useSiteSettings();
+  const { images, loading: imagesLoading } = useSiteImages();
 
-  const loading = heroLoading || settingsLoading;
+  const loading = heroLoading || settingsLoading || imagesLoading;
 
   if (loading) {
     return (
@@ -21,11 +23,11 @@ export default function Donate() {
   return (
     <div className="pt-32 bg-brand-cream min-h-screen">
       {/* Header */}
-      <section className="relative py-32 px-8 md:px-20 overflow-hidden bg-brand-ink">
+      <section className="relative py-20 md:py-32 px-6 md:px-20 overflow-hidden bg-brand-ink">
         <div className="absolute inset-0 z-0">
-          {hero?.image_url ? (
+          {images.donate_bg_image ? (
             <img 
-              src={hero.image_url} 
+              src={images.donate_bg_image} 
               alt="Donate background" 
               className="w-full h-full object-cover opacity-40"
               referrerPolicy="no-referrer"
@@ -45,11 +47,11 @@ export default function Donate() {
             <span className="text-brand-red font-bold text-[11px] uppercase tracking-[0.3em] mb-6 block flex items-center justify-center gap-2">
               {hero?.badge_text || "Support the Mission"}
             </span>
-            <h1 className="text-5xl md:text-8xl font-serif font-bold text-white mb-12 leading-none flex items-center justify-center gap-4">
+            <h1 className="text-4xl sm:text-5xl md:text-8xl font-serif font-bold text-white mb-8 md:mb-12 leading-tight md:leading-none flex items-center justify-center gap-4">
               <span dangerouslySetInnerHTML={{ __html: hero?.title || 'Give a <span class="italic">Second Chance.</span>' }} />
             </h1>
             <div className="flex items-center justify-center gap-4">
-              <p className="text-xl text-white/60 max-w-2xl mx-auto font-light leading-relaxed">
+              <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto font-light leading-relaxed">
                 {hero?.subtitle || "Your contribution directly funds life-saving medical support, global awareness campaigns, and direct assistance for transplant survivors."}
               </p>
             </div>
@@ -58,12 +60,12 @@ export default function Donate() {
       </section>
 
       {/* Donation Options */}
-      <section className="py-24 px-8 md:px-20 bg-white">
+      <section className="py-16 md:py-24 px-6 md:px-20 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 md:gap-16">
             {/* Impact Cards */}
             <div className="lg:col-span-2 space-y-12">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                 {[
                   { amount: "$25", title: "Patient Support", desc: "Provides essential medical supplies for a patient in recovery." },
                   { amount: "$50", title: "Awareness Kit", desc: "Funds educational materials for a community outreach program." },
@@ -76,7 +78,7 @@ export default function Donate() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className="p-10 border border-brand-ink/5 bg-brand-cream/30 hover:bg-white hover:shadow-2xl transition-all group cursor-pointer"
+                    className="p-8 md:p-10 border border-brand-ink/5 bg-brand-cream/30 hover:bg-white hover:shadow-2xl transition-all group cursor-pointer"
                   >
                     <span className="text-3xl font-serif font-bold text-brand-red block mb-4">{item.amount}</span>
                     <h3 className="text-xl font-serif font-bold text-brand-ink mb-4">{item.title}</h3>
@@ -85,7 +87,7 @@ export default function Donate() {
                 ))}
               </div>
 
-              <div className="p-12 border border-brand-ink/5 bg-brand-ink text-white">
+              <div className="p-8 md:p-12 border border-brand-ink/5 bg-brand-ink text-white">
                 <div className="flex items-center gap-6 mb-8">
                   <div className="w-16 h-16 bg-brand-red flex items-center justify-center">
                     <Award className="w-8 h-8 text-white" />
@@ -101,82 +103,52 @@ export default function Donate() {
               </div>
             </div>
 
-            {/* Donation Form Placeholder */}
-            <div className="bg-brand-cream p-12 border border-brand-ink/5 shadow-xl h-fit sticky top-32">
+            {/* Zelle Donation Info */}
+            <div className="bg-brand-cream p-8 md:p-12 border border-brand-ink/5 shadow-xl h-fit lg:sticky lg:top-32">
               <h3 className="text-2xl font-serif font-bold text-brand-ink mb-8">Make a Donation</h3>
-              <form className="space-y-6">
-                <div>
-                  <label className="text-[10px] uppercase tracking-widest font-bold text-brand-ink/40 mb-2 block">Select Amount</label>
-                  <div className="grid grid-cols-3 gap-3">
-                    {['$25', '$50', '$100'].map((amt) => (
-                      <button 
-                        key={amt}
-                        type="button"
-                        className="py-3 border border-brand-ink/10 text-sm font-bold hover:bg-brand-red hover:text-white transition-all"
-                      >
-                        {amt}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <label className="text-[10px] uppercase tracking-widest font-bold text-brand-ink/40 mb-2 block">Custom Amount</label>
-                  <div className="relative">
-                    <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-ink/40" />
-                    <input 
-                      type="number" 
-                      placeholder="0.00"
-                      className="w-full bg-white border border-brand-ink/10 px-10 py-4 text-sm focus:ring-1 focus:ring-brand-red outline-none"
-                    />
-                  </div>
-                </div>
-                <button className="w-full bg-brand-red text-white py-5 font-bold text-[12px] uppercase tracking-widest hover:bg-brand-ink transition-all shadow-xl shadow-brand-red/20">
-                  Proceed to Payment
-                </button>
-
-                {/* Zelle Payment Option */}
-                <div className="pt-6 border-t border-brand-ink/5">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-brand-ink text-white flex items-center justify-center rounded-full">
-                      <Mail className="w-4 h-4" />
+              <div className="space-y-8">
+                <div className="p-6 bg-white border border-brand-ink/5">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-brand-red text-white flex items-center justify-center">
+                      <Mail className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] uppercase tracking-widest font-bold text-brand-ink">Donate via Zelle</span>
+                    <div>
+                      <h4 className="text-[10px] uppercase tracking-widest font-bold text-brand-ink/40">Primary Method</h4>
+                      <p className="text-lg font-serif font-bold text-brand-ink">Zelle Transfer</p>
+                    </div>
                   </div>
-                  <p className="text-sm text-brand-ink/60 font-light leading-relaxed">
-                    You can also send your donation directly via Zelle to:
-                    <br />
-                    <span className="font-bold text-brand-ink break-all">{settings.zelleEmail}</span>
-                  </p>
+                  
+                  <div className="space-y-4">
+                    <p className="text-sm text-brand-ink/60 font-light leading-relaxed">
+                      Please send your contributions directly to our official Zelle account:
+                    </p>
+                    <div className="p-4 bg-brand-cream border border-brand-ink/5 select-all cursor-pointer group relative">
+                      <span className="text-brand-ink font-bold break-all block pr-8">
+                        {settings.zelleEmail}
+                      </span>
+                    </div>
+                    <p className="text-[10px] text-brand-ink/40 italic">
+                      * 100% of your donation goes directly to our programs.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-center gap-4 pt-4 border-t border-brand-ink/5">
+                <div className="space-y-4">
+                  <h4 className="text-[10px] uppercase tracking-widest font-bold text-brand-ink/40">Instructions</h4>
+                  <ul className="text-xs text-brand-ink/60 space-y-2 font-light list-disc pl-4">
+                    <li>Open your banking app</li>
+                    <li>Select "Send Money with Zelle"</li>
+                    <li>Enter our email address above</li>
+                    <li>Enter the amount you wish to donate</li>
+                    <li>Confirm and send</li>
+                  </ul>
+                </div>
+
+                <div className="pt-6 border-t border-brand-ink/5 flex items-center justify-center gap-4">
                   <ShieldCheck className="w-4 h-4 text-brand-ink/40" />
-                  <span className="text-[9px] uppercase tracking-widest font-bold text-brand-ink/40">Secure SSL Encryption</span>
+                  <span className="text-[9px] uppercase tracking-widest font-bold text-brand-ink/40">Direct & Secure Transfer</span>
                 </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Global Impact */}
-      <section className="py-32 px-8 md:px-20 bg-brand-ink text-brand-cream">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
-            <div>
-              <Globe className="w-10 h-10 text-brand-red mx-auto mb-8" />
-              <h3 className="text-4xl font-serif font-bold mb-4">Global</h3>
-              <p className="text-brand-cream/40 text-sm font-light">Outreach across USA, Africa, and India.</p>
-            </div>
-            <div>
-              <Heart className="w-10 h-10 text-brand-red mx-auto mb-8" />
-              <h3 className="text-4xl font-serif font-bold mb-4">Direct</h3>
-              <p className="text-brand-cream/40 text-sm font-light">Assistance for transplant survivors.</p>
-            </div>
-            <div>
-              <CreditCard className="w-10 h-10 text-brand-red mx-auto mb-8" />
-              <h3 className="text-4xl font-serif font-bold mb-4">Secure</h3>
-              <p className="text-brand-cream/40 text-sm font-light">Safe and transparent transactions.</p>
+              </div>
             </div>
           </div>
         </div>

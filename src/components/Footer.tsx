@@ -7,19 +7,19 @@ export default function Footer() {
   const { settings } = useSiteSettings();
   
   return (
-    <footer className="bg-brand-ink text-brand-cream/60 pt-24 pb-12">
-      <div className="max-w-[1400px] mx-auto px-8 md:px-20">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-20 mb-20">
+    <footer className="bg-brand-ink text-brand-cream/60 pt-16 md:pt-24 pb-12">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-20 mb-16 md:mb-20">
           <div className="col-span-1 md:col-span-1">
             <Logo className="mb-8" light={true} />
             <p className="text-sm leading-relaxed mb-8 font-light">
               Giving Life a Second Chance — One Heart, One Story, One Community at a Time. Supporting organ donation awareness and transplant survivors globally.
             </p>
             <div className="flex space-x-6">
-              <a href="https://www.instagram.com/second_chance_at_life_" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors">
+              <a href="https://www.instagram.com/second_chance_at_life" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="https://x.com/secchanceatlife" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors">
+              <a href="https://x.com/secChanceAtLife" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
             </div>

@@ -16,7 +16,29 @@ export function useMediaGallery() {
   const fetchMedia = async () => {
     if (!isSupabaseConfigured) {
       // Fallback data if not configured
-      setMedia([]);
+      setMedia([
+        {
+          id: '1',
+          title: 'Community Outreach',
+          category: 'Moments',
+          media_url: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1000',
+          media_type: 'image'
+        },
+        {
+          id: '2',
+          title: 'Medical Support',
+          category: 'Moments',
+          media_url: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1000',
+          media_type: 'image'
+        },
+        {
+          id: '3',
+          title: 'Transplant Success',
+          category: 'Moments',
+          media_url: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=1000',
+          media_type: 'image'
+        }
+      ]);
       setLoading(false);
       return;
     }
