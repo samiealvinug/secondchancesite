@@ -148,7 +148,7 @@ export default function Home() {
             
             <div className="space-y-6 md:space-y-10">
               <p className="text-xl md:text-2xl font-serif italic text-brand-ink/80 leading-relaxed">
-                "Second Chance at Life was born from lived experience with organ failure and transplantation. We believe every life saved is a testament to human resilience."
+                "Second Chance At Life was born from lived experience with organ failure and transplantation. We believe every life saved is a testament to human resilience."
               </p>
               <div className="h-px w-16 md:w-20 bg-brand-red/30" />
               <p className="text-base md:text-lg text-brand-ink/60 font-light leading-relaxed">

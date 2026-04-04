@@ -8,6 +8,7 @@ export function useSiteSettings() {
     contactEmail: SITE_CONFIG.contactEmail,
     contactPhone: SITE_CONFIG.contactPhone,
     zelleEmail: SITE_CONFIG.zelleEmail,
+    siteTitle: SITE_CONFIG.name,
   });
   const [loading, setLoading] = useState(true);
 
@@ -31,6 +32,7 @@ export function useSiteSettings() {
           if (item.key === 'contact_email') newSettings.contactEmail = item.value;
           if (item.key === 'contact_phone') newSettings.contactPhone = item.value;
           if (item.key === 'zelle_email') newSettings.zelleEmail = item.value;
+          if (item.key === 'site_title') newSettings.siteTitle = item.value;
         });
         setSettings(newSettings);
       }
@@ -59,6 +61,7 @@ export function useSiteSettings() {
       if (key === 'contact_email') setSettings((prev) => ({ ...prev, contactEmail: value }));
       if (key === 'contact_phone') setSettings((prev) => ({ ...prev, contactPhone: value }));
       if (key === 'zelle_email') setSettings((prev) => ({ ...prev, zelleEmail: value }));
+      if (key === 'site_title') setSettings((prev) => ({ ...prev, siteTitle: value }));
       
       return true;
     } catch (error) {

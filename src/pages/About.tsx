@@ -31,7 +31,7 @@ export default function About() {
               The Responsibility of <span className="italic">Survival.</span>
             </h1>
             <p className="text-lg md:text-xl text-brand-ink/60 max-w-2xl font-light leading-relaxed">
-              Second Chance at Life was born from lived experience with organ failure and transplantation.
+              Second Chance At Life was born from lived experience with organ failure and transplantation.
             </p>
           </motion.div>
         </div>
@@ -44,7 +44,7 @@ export default function About() {
             <div className="space-y-8">
               <h2 className="text-3xl font-serif font-bold text-brand-ink">A Bridge to Hope</h2>
               <p className="text-xl text-brand-ink/70 leading-relaxed font-light">
-                Second Chance at Life was born from lived experience with organ failure and transplantation. We understand the physical, emotional, and financial toll these journeys take on individuals and their families.
+                Second Chance At Life was born from lived experience with organ failure and transplantation. We understand the physical, emotional, and financial toll these journeys take on individuals and their families.
               </p>
               <p className="text-lg text-brand-ink/60 leading-relaxed font-light">
                 We believe that every life saved is a testament to human resilience and community support. Our organization serves as a bridge, connecting those in need with resources, education, and a global network of hope.
@@ -129,7 +129,7 @@ export default function About() {
                   Peter Mpagi's journey from a rising star on the football field to a heart transplant survivor is the heartbeat of our organization. Supported by his community, he received the gift of life: a heart transplant.
                 </p>
                 <p>
-                  During his healing, Peter realized his survival was a call to action. He founded Second Chance at Life to ensure no one navigates the journey of organ failure alone.
+                  During his healing, Peter realized his survival was a call to action. He founded Second Chance At Life to ensure no one navigates the journey of organ failure alone.
                 </p>
               </div>
             </motion.div>

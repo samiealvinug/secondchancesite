@@ -11,7 +11,7 @@ export const Logo = ({ className = "", light = false }: { className?: string; li
       <div className={cn("relative group/logo flex items-center", className, light && "drop-shadow-sm")}>
         <img 
           src={logoUrl} 
-          alt="Second Chance at Life Logo" 
+          alt="Second Chance At Life Logo" 
           className={cn("h-[74px] w-auto object-contain", light && "brightness-0 invert")}
           referrerPolicy="no-referrer"
         />
@@ -33,7 +33,7 @@ export const Logo = ({ className = "", light = false }: { className?: string; li
           Second Chance
         </span>
         <span className="text-[13px] uppercase tracking-[0.2em] font-medium text-brand-red">
-          at Life Organization
+          At Life
         </span>
       </div>
     </div>

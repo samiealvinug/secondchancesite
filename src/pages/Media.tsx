@@ -55,7 +55,7 @@ export default function Media() {
             <iframe 
               className="w-full h-full opacity-90 group-hover:opacity-100 transition-opacity"
               src={videos.length > 0 ? videos[0].media_url : "https://www.youtube.com/embed/L3dqtwVQd00"} 
-              title="Second Chance at Life Story"
+              title="Second Chance At Life Story"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
               allowFullScreen

@@ -71,7 +71,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-white/5 pt-12 text-center text-[10px] uppercase tracking-[0.2em] font-bold">
-          <p>&copy; {new Date().getFullYear()} Second Chance at Life. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Second Chance At Life. All rights reserved.</p>
         </div>
       </div>
     </footer>
