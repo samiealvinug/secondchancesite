@@ -16,7 +16,7 @@ export default function Footer() {
               Giving Life a Second Chance — One Heart, One Story, One Community at a Time. Supporting organ donation awareness and transplant survivors globally.
             </p>
             <div className="flex space-x-6">
-              <a href="https://www.instagram.com/second_chance_at_life" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors">
+              <a href="https://www.instagram.com/second_chance_at_life_?igsh=a2k0YXI2b3Z2ZG43" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
               <a href="https://x.com/secChanceAtLife" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors">

@@ -77,7 +77,7 @@ export default function Contact() {
                 <h4 className="text-[10px] uppercase tracking-widest font-bold text-brand-ink/40 mb-8">Follow Our Journey</h4>
                 <div className="flex gap-6">
                   {[
-                    { icon: Instagram, href: "https://www.instagram.com/second_chance_at_life" },
+                    { icon: Instagram, href: "https://www.instagram.com/second_chance_at_life_?igsh=a2k0YXI2b3Z2ZG43" },
                     { icon: Twitter, href: "https://x.com/secChanceAtLife" }
                   ].map((social, i) => (
                     <a 

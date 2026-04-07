@@ -128,7 +128,7 @@ export default function Navbar() {
             >
               <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-ink/40 mb-4">Connect With Us</p>
               <div className="flex gap-6">
-                <a href="https://www.instagram.com/second_chance_at_life" target="_blank" rel="noopener noreferrer" className="text-brand-ink font-serif italic text-lg hover:text-brand-red transition-colors">Instagram</a>
+                <a href="https://www.instagram.com/second_chance_at_life_?igsh=a2k0YXI2b3Z2ZG43" target="_blank" rel="noopener noreferrer" className="text-brand-ink font-serif italic text-lg hover:text-brand-red transition-colors">Instagram</a>
                 <a href="https://x.com/secChanceAtLife" target="_blank" rel="noopener noreferrer" className="text-brand-ink font-serif italic text-lg hover:text-brand-red transition-colors">Twitter</a>
               </div>
             </motion.div>
