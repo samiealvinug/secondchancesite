@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { Globe, Users, Heart, Megaphone, MapPin, CheckCircle } from 'lucide-react';
 import { useImpactData } from '../hooks/useImpactData';
 import { useHeroContent } from '../hooks/useHeroContent';
+import { useSiteImages } from '../hooks/useSiteImages';
 import PlaceholderImage from '../components/PlaceholderImage';
 
 export default function Impact() {
@@ -11,6 +12,7 @@ export default function Impact() {
     loading: impactLoading
   } = useImpactData();
   const { hero, loading: heroLoading } = useHeroContent('impact');
+  const { images } = useSiteImages();
 
   if (impactLoading || heroLoading) {
     return (
@@ -125,6 +127,84 @@ export default function Impact() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* A Safe Return Home Section */}
+      <section className="py-20 md:py-32 px-6 md:px-20 bg-brand-cream border-t border-brand-ink/5">
+        <div className="max-w-4xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center space-y-12 md:space-y-20"
+          >
+            {/* Section Title */}
+            <div className="space-y-4">
+              <span className="text-brand-red font-bold text-[11px] uppercase tracking-[0.3em] block">Success Story</span>
+              <h2 className="text-3xl md:text-6xl font-serif font-bold text-brand-ink leading-tight">
+                A Safe Return Home: <span className="italic">A New Beginning.</span>
+              </h2>
+            </div>
+
+            {/* Intro Image (Top) */}
+            <div className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden shadow-2xl group">
+              <img 
+                src={images.impact_success_story_main} 
+                alt="Child supported by Second Chance program" 
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-brand-red/5 mix-blend-multiply" />
+            </div>
+
+            {/* Story Text */}
+            <div className="max-w-3xl mx-auto">
+              <p className="text-xl md:text-2xl text-brand-ink/80 leading-relaxed font-serif italic">
+                “One of the children supported through the Second Chance program has safely returned to Uganda. We’re happy to share that the entire journey went smoothly, thanks to the dedication and support of everyone involved. This marks the beginning of a new chapter filled with hope, opportunity, and continued growth.”
+              </p>
+            </div>
+
+            {/* Supporting Image (Below Text) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="aspect-square overflow-hidden shadow-xl">
+                <img 
+                  src={images.impact_success_story_caregiver} 
+                  alt="Child with caregiver" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              
+              {/* Credibility Element */}
+              <div className="space-y-6 text-left">
+                <div className="aspect-[3/4] bg-white p-4 shadow-lg border border-brand-ink/5 relative group">
+                  <img 
+                    src={images.impact_success_story_letter} 
+                    alt="Ministry of Health Appreciation Letter" 
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-brand-ink/10">
+                    <CheckCircle className="w-12 h-12 text-brand-red" />
+                  </div>
+                </div>
+                <p className="text-xs md:text-sm text-brand-ink/60 font-medium uppercase tracking-widest leading-relaxed">
+                  “Official recognition from the Ministry of Health for contributions toward saving children’s lives.”
+                </p>
+              </div>
+            </div>
+
+            {/* Call to Action */}
+            <div className="pt-12">
+              <a 
+                href="/donate" 
+                className="inline-block bg-brand-red text-white px-12 py-6 rounded-none font-bold text-[12px] uppercase tracking-[0.3em] hover:bg-brand-ink transition-all shadow-2xl shadow-brand-red/20"
+              >
+                Support More Children
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
